@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل مستخدم جديد</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .register-box {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      width: 320px;
+      text-align: center;
+    }
+    input, select {
+      width: 90%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #43a047;
+    }
+  </style>
+</head>
+<body>
+  <div class="register-box">
+    <h2>➕ تسجيل مستخدم جديد</h2>
+    <form onsubmit="registerUser(event)">
+      <input type="email" id="email" placeholder="البريد الإلكتروني" required><br>
+      <input type="password" id="password" placeholder="كلمة المرور" required><br>
+      <input type="password" id="confirm" placeholder="تأكيد كلمة المرور" required><br>
+      <select id="role" required>
+        <option value="">اختر الصلاحية</option>
+        <option value="مشرف">مشرف</option>
+        <option value="مدير مالي">مدير مالي</option>
+        <option value="مشاهد">مشاهد فقط</option>
+      </select><br>
+      <button type="submit">تسجيل</button>
+    </form>
+  </div>
+
+  <script>
+    async function registerUser(event) {
+      event.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const confirm = document.getElementById("confirm").value;
+      const role = document.getElementById("role").value;
+
+      if (password !== confirm) {
+        alert("❌ كلمة المرور غير متطابقة");
+        return;
+      }
+
+      const url = "https://script.google.com/macros/s/AKfycbwEoZDZ_SKCMiVjBAoPryk-d33iuf6ENfbqWKoxUQNt9vTlYm78DE5OQxk3y9XCAwpL/exec";
+      const fullUrl = `${url}?mode=register&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}&role=${encodeURIComponent(role)}`;
+
+      const response = await fetch(fullUrl);
+      const result = await response.text();
+
+      if (result === "SUCCESS") {
+        alert("✅ تم التسجيل بنجاح! يمكنك تسجيل الدخول الآن.");
+        window.location.href = "login.html";
+      } else if (result === "EXISTS") {
+        alert("⚠️ هذا المستخدم مسجل مسبقًا.");
+      } else {
+        alert("❌ حدث خطأ أثناء التسجيل.");
+      }
+    }
+  </script>
+</body>
+</html>
