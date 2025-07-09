@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل الدخول - THEEB</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      direction: rtl;
+      background: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 100px;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    input {
+      padding: 10px;
+      margin: 5px;
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      background: #4CAF50;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    a {
+      margin-top: 10px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <h2>تسجيل الدخول</h2>
+  <input id="email" type="email" placeholder="البريد الإلكتروني"><br>
+  <input id="password" type="password" placeholder="كلمة المرور"><br>
+  <button onclick="login()">دخول</button>
+  <a href="register.html">📝 تسجيل جديد</a>
+
+  <script>
+    async function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      const res = await fetch("https://script.google.com/macros/s/AKfycbwFwI0DnRDap2Yw5RdVcr18QlHWJYYSfgT6WSkzQtqAZ1EFHuqmN6wxnInfXDIJ9rbP/exec", {
+        method: "POST",
+        body: new URLSearchParams({ email, password })
+      });
+      const role = await res.text();
+      if (role === "INVALID") {
+        alert("❌ البريد الإلكتروني أو كلمة المرور غير صحيحة.");
+      } else {
+        sessionStorage.setItem("userRole", role);
+        sessionStorage.setItem("username", email);
+        window.location.href = "dashboard.html";
+      }
+    }
+  </script>
+</body>
+</html>
