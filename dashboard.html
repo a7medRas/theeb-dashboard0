@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>لوحة تحكم THEEB</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #2196F3;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+    .logout-btn, .home-btn {
+      position: absolute;
+      top: 20px;
+      padding: 6px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      color: white;
+    }
+    .logout-btn {
+      left: 20px;
+      background-color: #f44336;
+    }
+    .home-btn {
+      right: 20px;
+      background: #4caf50;
+    }
+    .container {
+      padding: 20px;
+    }
+    h2 { margin-top: 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #2196F3;
+      color: white;
+    }
+    .add-announcer {
+      margin-top: 20px;
+    }
+    input, select {
+      padding: 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    button.add {
+      background: #2196F3;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button.add:hover {
+      background: #1976D2;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📊 لوحة تحكم THEEB</h1>
+    <button class="logout-btn" onclick="logout()">🚪 تسجيل الخروج</button>
+    <button class="home-btn" onclick="goHome()">🏠 الرئيسية</button>
+  </header>
+
+  <div class="container">
+    <h2>📋 قائمة المذيعين</h2>
+    <table id="announcerTable">
+      <thead>
+        <tr>
+          <th>الاسم</th>
+          <th>UID</th>
+          <th>Likee ID</th>
+          <th>الفاصوليا</th>
+          <th>الساعات</th>
+          <th>الأيام</th>
+          <th>الوظيفة</th>
+          <th>الراتب</th>
+          <th>مكافآت</th>
+          <th>خصومات</th>
+          <th>📎 فاتورة</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>مثال مذيع</td>
+          <td>123456789</td>
+          <td>example_likee</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td>مذيع</td>
+          <td>0</td>
+          <td>0</td>
+          <td>0</td>
+          <td><input type="file" accept="application/pdf,image/*"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="add-announcer">
+      <h3>➕ إضافة مذيع</h3>
+      <input type="text" id="name" placeholder="الاسم" />
+      <input type="text" id="uid" placeholder="UID" />
+      <input type="text" id="likee" placeholder="Likee ID" />
+      <select id="role">
+        <option value="مذيع">مذيع</option>
+        <option value="وكيل">وكيل</option>
+        <option value="مشرف">مشرف</option>
+      </select>
+      <br />
+      <button class="add" onclick="addAnnouncer()">إضافة</button>
+    </div>
+  </div>
+
+  <script>
+    function logout() {
+      sessionStorage.clear();
+      window.location.href = "login.html";
+    }
+
+    function goHome() {
+      window.location.href = "index.html";
+    }
+
+    function addAnnouncer() {
+      const name = document.getElementById("name").value;
+      const uid = document.getElementById("uid").value;
+      const likee = document.getElementById("likee").value;
+      const role = document.getElementById("role").value;
+
+      const table = document.getElementById("announcerTable").getElementsByTagName("tbody")[0];
+      const row = table.insertRow();
+      row.innerHTML = `
+        <td>${name}</td>
+        <td>${uid}</td>
+        <td>${likee}</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td>${role}</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td><input type="file" accept="application/pdf,image/*"></td>
+      `;
+    }
+  </script>
+</body>
+</html>
