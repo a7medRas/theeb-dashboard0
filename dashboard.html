@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <title>لوحة التحكم - THEEB</title>
+  <style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; }
+    header { background: #4CAF50; color: white; padding: 20px; text-align: center; }
+    .stats { display: flex; justify-content: space-around; margin: 20px; }
+    .card { background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 200px; text-align: center; }
+    table { width: 90%; margin: auto; border-collapse: collapse; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-top: 20px; }
+    th, td { padding: 10px; border-bottom: 1px solid #ddd; }
+    th { background: #f4f6f9; }
+    input[type=search] { margin: 20px auto; padding: 10px; width: 300px; display: block; border: 1px solid #ccc; border-radius: 5px; }
+    footer { margin-top: 40px; text-align: center; color: #999; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>لوحة تحكم THEEB</h1>
+    <p>مرحباً admin@theeb.org</p>
+  </header>
+
+  <div class="stats">
+    <div class="card">عدد المذيعين<br><strong>5</strong></div>
+    <div class="card">متوسط الأداء<br><strong>85%</strong></div>
+    <div class="card">إجمالي الرواتب<br><strong>15,000</strong></div>
+  </div>
+
+  <input type="search" placeholder="🔍 ابحث عن مذيع...">
+
+  <table>
+    <thead>
+      <tr>
+        <th>الاسم</th><th>UID</th><th>Likee ID</th><th>الوظيفة</th><th>إجراءات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Rody</td><td>382090348</td><td>786669423</td><td>مذيع</td>
+        <td>✏️ 🗑️ 📤</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <footer>THEEB.org © 2025</footer>
+</body>
+</html>
