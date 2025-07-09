@@ -1,11 +1,155 @@
-
 <!DOCTYPE html>
 <html lang="ar">
-<head><meta charset="UTF-8"><title>لوحة التحكم</title></head>
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة التحكم - THEEB</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      direction: rtl;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+
+    .header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 20px;
+    }
+
+    .search-box {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    .search-box input {
+      padding: 8px;
+      width: 300px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    table th, table td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+
+    table th {
+      background-color: #eee;
+    }
+
+    .actions button {
+      margin: 2px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .edit-btn { background-color: #2196F3; color: white; }
+    .delete-btn { background-color: #f44336; color: white; }
+    .upload-btn { background-color: #9c27b0; color: white; }
+
+    .back-btn {
+      margin-top: 20px;
+      display: inline-block;
+      background-color: #607d8b;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+  </style>
+</head>
 <body>
-<h2>🎯 مرحبًا بك في لوحة تحكم THEEB</h2>
-<p>👤 الصلاحية: مشرف</p>
-<p>📦 هنا سيتم عرض كل مذيع مع أزرار التعديل، الحذف، ورفع الفاتورة</p>
-<a href="index.html">⬅️ العودة للرئيسية</a>
+
+  <div class="header">
+    🎯 THEEB - مرحبًا بك في لوحة التحكم
+    <div style="font-size:14px">الصلاحية: <span id="roleDisplay">...</span></div>
+  </div>
+
+  <div class="search-box">
+    🔍 <input type="text" id="searchInput" placeholder="ابحث عن مذيع...">
+  </div>
+
+  <table id="broadcastersTable">
+    <thead>
+      <tr>
+        <th>الاسم</th>
+        <th>UID</th>
+        <th>Likee ID</th>
+        <th>الوظيفة</th>
+        <th>الإجراءات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- سيتم تعبئة البيانات تلقائيًا -->
+    </tbody>
+  </table>
+
+  <a class="back-btn" href="index.html">🏠 العودة للرئيسية</a>
+
+  <script>
+    const userRole = sessionStorage.getItem("userRole");
+    const username = sessionStorage.getItem("username");
+
+    document.getElementById("roleDisplay").textContent = userRole;
+
+    const broadcasters = [
+      { name: "Rody", uid: "382090348", likeeId: "786669423", role: "مذيع" },
+      { name: "Asmaa", uid: "384998732", likeeId: "788888882", role: "مذيع" },
+      { name: "Shimaa", uid: "385998234", likeeId: "799999999", role: "مذيع" }
+    ];
+
+    function renderTable(filterText = "") {
+      const tbody = document.querySelector("#broadcastersTable tbody");
+      tbody.innerHTML = "";
+
+      broadcasters
+        .filter(b => b.name.includes(filterText))
+        .forEach(b => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${b.name}</td>
+            <td>${b.uid}</td>
+            <td>${b.likeeId}</td>
+            <td>${b.role}</td>
+            <td class="actions">
+              ${userRole === "مشرف" ? `
+                <button class="edit-btn">✏️ تعديل</button>
+                <button class="delete-btn">🗑️ حذف</button>
+                <button class="upload-btn">📤 فاتورة</button>
+              ` : "👁️ وضع القراءة فقط"}
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+    }
+
+    // فلتر البحث
+    document.getElementById("searchInput").addEventListener("input", e => {
+      renderTable(e.target.value);
+    });
+
+    // تحقق من صلاحيات الدخول
+    if (!userRole || !username) {
+      alert("يرجى تسجيل الدخول أولاً.");
+      window.location.href = "login.html";
+    } else {
+      renderTable();
+    }
+  </script>
+
 </body>
 </html>
